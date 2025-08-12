@@ -36,8 +36,8 @@ export const storeClicks = async ({id, originalUrl}) => {
     const res = parser.getResult();
     const device = res.type || "desktop"; // Default to desktop if type is not detected
 
-    const response = await fetch("https://ipapi.co/json");
-    const {city, country_name: country} = await response.json();
+    const response = await fetch("https://ipwho.is/");
+    const {city, country: country} = await response.json();
 
     // Record the click
     await supabase.from("clicks").insert({

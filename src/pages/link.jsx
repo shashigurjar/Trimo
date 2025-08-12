@@ -76,11 +76,11 @@ const LinkPage = () => {
             {url?.title}
           </span>
           <a
-            href={`https://trimme.netlify.app/${link}`}
+            href={`https://trimrr.in/${link}`}
             target="_blank"
             className="text-3xl sm:text-4xl text-blue-400 font-bold hover:underline cursor-pointer"
           >
-            https://trimme.netlify.app/{link}
+            https://trimrr.in/{link}
           </a>
           <a
             href={url?.original_url}
