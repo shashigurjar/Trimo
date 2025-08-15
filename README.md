@@ -45,7 +45,10 @@ Trimo is a lightweight, user-friendly URL shortener built with **React (Vite)** 
 | Frontend  | React (Vite), Tailwind CSS, Lucide Icons                   |
 | Backend   | Supabase (Postgres, Auth, Storage)                         |
 | Analytics | Stored in Supabase (clicks table with IP-derived location) |
+<<<<<<< HEAD
 | Hosting   | Netlify (frontend), Supabase (backend)                     |
+=======
+>>>>>>> f5d6c37a1eab96f92dfd847237fa3ceb03711f03
 | Dev Tools | Git, npm/yarn, VS Code                                     |
 
 ---
@@ -118,8 +121,11 @@ created_at timestamp
 ```sql
 id uuid primary key
 url_id uuid references urls(id)
+<<<<<<< HEAD
 ip text
 user_agent text
+=======
+>>>>>>> f5d6c37a1eab96f92dfd847237fa3ceb03711f03
 device_type text
 country text
 region text
