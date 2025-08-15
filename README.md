@@ -1,12 +1,148 @@
-# React + Vite
+# 🔗 Trimo – Tiny Links, Big Insights
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+*“Make long URLs disappear and your analytics sparkle.”*
 
-Currently, two official plugins are available:
+Welcome to **Trimo**, a modern URL shortener that does more than squash long links — it gives you QR codes, click analytics, and a clean dashboard so you actually know who clicked your links and from where.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ✨ What is Trimo?
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Trimo is a lightweight, user-friendly URL shortener built with **React (Vite)** for the frontend and **Supabase** as a backend (database + auth + storage). It allows users to:
+
+- Create short links (auto or custom)
+- Generate QR codes for each short link
+- Track clicks (total clicks, device type, and rough location)
+- Copy, download QR codes, and manage links via a dashboard
+
+---
+
+## 🚩 Why Trimo matters (real-world uses)
+
+- **Cleaner Sharing** — Short, branded links are the difference between “click here” and “what is this?”
+- **Campaign Tracking** — Measure the effectiveness of posts, posters, or emails.
+- **Smaller QR Codes** — Short links produce smaller, easier-to-scan QR codes.
+- **Branding & Professionalism** — Custom short URLs look trustworthy.
+- **Analytics** — See engagement by location and device for smarter decisions.
+
+---
+
+## 🧩 Features
+
+- 🔹 Shorten URLs (auto-generated or choose your custom slug)
+- 🔹 Generate downloadable QR codes per short URL
+- 🔹 Track click analytics: total clicks, device info, and geo breakdown
+- 🔹 User authentication (Supabase Auth) — links per user
+- 🔹 Delete/manage links + download QR images
+- 🔹 Responsive UI built with Tailwind CSS
+
+---
+
+## 🛠 Tech Stack
+
+| Layer     | Tech                                                       |
+| --------- | ---------------------------------------------------------- |
+| Frontend  | React (Vite), Tailwind CSS, Lucide Icons                   |
+| Backend   | Supabase (Postgres, Auth, Storage)                         |
+| Analytics | Stored in Supabase (clicks table with IP-derived location) |
+| Hosting   | Netlify (frontend), Supabase (backend)                     |
+| Dev Tools | Git, npm/yarn, VS Code                                     |
+
+---
+
+## 🔧 Quick Start (Developer)
+
+### 1) Clone
+
+```bash
+git clone https://github.com/shashigurjar/Trimo.git
+cd Trimo
+```
+
+### 2) Environment Variables
+
+Create a `.env` in the project root:
+
+```env
+VITE_SUPABASE_URL=https://<your-project-ref>.supabase.co
+VITE_SUPABASE_ANON_KEY=<your-anon-public-key>
+```
+
+> ⚠️ Only the **anon** key should be used in the client. Keep the service role key secret.
+
+### 3) Install & Run (dev)
+
+```bash
+npm install
+npm run dev
+```
+
+Open `http://localhost:5173` (or the console address) to view the app.
+
+### 4) Build for production
+
+```bash
+npm run build
+```
+
+---
+
+## ⚙️ How It Works (high level)
+
+1. **Create short link**
+   - User submits a long URL → stored in Supabase with short slug, QR generated & saved.
+2. **User shares short link** (`https://yourdomain/<slug>`)
+3. **Clicking short link**
+   - App fetches original URL from Supabase, records click data (timestamp, device, location), then redirects.
+4. **View analytics**
+   - Dashboard aggregates click data by location/device/time.
+
+---
+
+## 🧾 Database (Supabase) - Suggested Tables
+
+**urls**
+
+```sql
+id uuid primary key
+owner_id uuid references auth.users
+title text
+original_url text
+short_slug text unique
+qr_url text
+created_at timestamp
+```
+
+**clicks**
+
+```sql
+id uuid primary key
+url_id uuid references urls(id)
+ip text
+user_agent text
+device_type text
+country text
+region text
+created_at timestamp
+```
+
+---
+
+## 🧑‍💻 Author
+
+**Shashank Gurjar**\
+GitHub: [https://github.com/shashigurjar](https://github.com/shashigurjar)
+
+---
+
+## 🎉 License
+
+MIT License — use it, fork it, make it better.
+
+---
+
+## 📬 Contact
+
+Built with ☕ and lots of curiosity.\
+If this project saved you from posting a 200-character dump, I did my job.
+

@@ -7,32 +7,28 @@ import {BarLoader} from "react-spinners";
 
 const RedirectLink = () => {
   const {id} = useParams();
-
   const {loading, data, fn} = useFetch(getLongUrl, id);
-
   const {loading: loadingStats, fn: fnStats} = useFetch(storeClicks, {
     id: data?.id,
     originalUrl: data?.original_url,
   });
 
-  useEffect(() => {
-    fn();
-  }, []);
-
-  useEffect(() => {
-    if (!loading && data) {
-      fnStats();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading]);
+  useEffect(() => { fn(); }, []);
+  useEffect(() => { if (!loading && data) fnStats(); }, [loading]);
 
   if (loading || loadingStats) {
     return (
-      <>
-        <BarLoader width={"100%"} color="#36d7b7" />
-        <br />
-        Redirecting...
-      </>
+      <div className="min-h-screen bg-gray-950 flex flex-col items-center justify-center p-4">
+        <div className="w-full max-w-md text-center">
+          <BarLoader 
+            width={"100%"} 
+            color="#3b82f6" 
+            height={2}
+            cssOverride={{ backgroundColor: 'rgba(31, 41, 55, 0.5)' }}
+          />
+          <p className="mt-4 text-gray-400">Redirecting to your destination...</p>
+        </div>
+      </div>
     );
   }
 
